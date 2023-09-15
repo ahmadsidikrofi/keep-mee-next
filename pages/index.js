@@ -36,12 +36,12 @@ const Home = () => {
       </div>
       <div className="notes-list">
         {isLoading ? ( <Loader />) 
-        : notes && notes.filter((note) => searchNote ? note.body.toLowerCase().includes(searchNote.toLowerCase()) 
+        : notes && notes.filter((note) => searchNote ? note.title.toLowerCase().includes(searchNote.toLowerCase()) 
         : true).map((note) => {
           return (
             <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
               <div className="note">
-                <p>{note.body}</p>
+                <p>{note.title}</p>
                 <div className="note-footer">
                   <small>{note.date}</small>
                 </div>

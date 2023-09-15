@@ -31,9 +31,10 @@ const CreateNote = () => {
                 setIsLoading(false)
                 route.push('/')
             }, 2000)   
-        ).catch(
-            console.log("Note gagal ditambah")
-        )
+        ).catch ((err) => {
+            console.log("Note gagal ditambah", + err);
+            setIsLoading(false);
+        })
     }
     return (
         <section className="create_blog">

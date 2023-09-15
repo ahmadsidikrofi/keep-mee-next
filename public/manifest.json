@@ -1,7 +1,7 @@
 {
     "theme_color": "#fef68a",
     "background_color": "#FFA480",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Keep Mee Note me",

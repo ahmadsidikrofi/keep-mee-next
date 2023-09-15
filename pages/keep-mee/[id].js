@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { useState } from "react";
 import { useRouter } from "next/router";
 import LoaderTriangle from "@/component/LoaderTriangle";
+import LoaderRect from "@/component/LoaderRect";
 
 export const getStaticPaths = async () => {
     const res = await fetch('https://furnicraft.web.id/api/keep-me');
@@ -73,7 +74,7 @@ const NoteDetail = ({ note }) => {
                     <span></span>
                     <div className="btn">
                         <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
-                        {isLoading ? <LoaderTriangle />
+                        {isLoading ? <LoaderRect />
                             : <button onClick={handleDeleteButton} className="delete_button">
                                 <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
                             </button>
