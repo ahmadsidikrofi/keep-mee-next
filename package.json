@@ -9,8 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "13.4.19",
+    "axios": "^1.5.0",
+    "next": "^13.4.19",
+    "next-pwa": "^5.6.0",
+    "nextjs-progressbar": "^0.0.16",
+    "pwa": "^1.9.7",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "workbox-webpack-plugin": "^7.0.0"
+  },
+  "devDependencies": {
+    "@iconify/react": "^4.1.1"
   }
 }
