@@ -21,7 +21,7 @@ const CreateNote = () => {
     const handleSubmiteNote = (e) => {
         e.preventDefault();
         const newNote = { body, title, date: date.toLocaleDateString() };
-        fetch('https://furnicraft.web.id/api/create/keep-me', {
+        fetch('https://furnicraft.web.id/api/keep-me', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(newNote)
