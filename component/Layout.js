@@ -30,8 +30,8 @@ const Layout = ({ children }) => {
     return (
         <>
             <Head>
-                <title>Keep mee | {children.type.name}</title>
-                <meta name="keywords" content={children.type.name} />
+                <title>Keep mee | Bismillah</title>
+                <meta name="keywords" content="Keep mee" />
             </Head>
             <div className={`header ${darkMode}`}>
                 <div className="app-title">
