@@ -9,7 +9,8 @@ const NotFound = () => {
 
     setTimeout(() => {
         setIsLoading(false)
-        window.location.reload();
+        // window.location.reload();
+        router.push('/')
     }, 1000)
     return (
         <div>
