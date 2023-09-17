@@ -9,7 +9,7 @@ const NotFound = () => {
 
     setTimeout(() => {
         setIsLoading(false)
-        window.location.reload();
+        // window.location.reload();
     }, 1000)
     return (
         <div>
