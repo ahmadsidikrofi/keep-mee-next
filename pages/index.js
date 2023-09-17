@@ -27,7 +27,7 @@ const Home = () => {
           setIsLoading(false); // Tangani kesalahan dengan mengubah isLoading menjadi false
         });
     }, 100)
-  }, [40000]);
+  }, []);
   return (
     <>
       <div className="search">
