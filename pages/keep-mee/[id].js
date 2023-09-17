@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import LoaderTriangle from "@/component/LoaderTriangle";
 import LoaderRect from "@/component/LoaderRect";
+import axios from 'axios'; // Import axios
 
 export const getStaticPaths = async () => {
-    const res = await fetch('https://furnicraft.web.id/api/keep-me');
-    const data = await res.json();
+    const response = await axios.get('https://furnicraft.web.id/api/keep-me');
+    const data = response.data;
     const paths = data.data.map((note) => {
         return {
             params: { id: note.id.toString() }
@@ -21,52 +22,69 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id;
-    const res = await fetch('https://furnicraft.web.id/api/keep-me/' + id)
-    const data = await res.json();
-    if (!data.data) {
+    try {
+        const response = await axios.get(`https://furnicraft.web.id/api/keep-me/${id}`);
+        const data = response.data;
+        
+        if (!data.data) {
+            return {
+                notFound: true, // Menandakan bahwa halaman tidak ditemukan
+            };
+        }
+        
         return {
-            notFound: true, // Menandakan bahwa halaman tidak ditemukan
+            props: { note: data.data }
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return {
+            notFound: true, // Tangani kesalahan dengan menampilkan halaman 404
         };
     }
-    return {
-        props: { note: data.data }
-    }
 }
+
 const NoteDetail = ({ note }) => {
-    const [ title, setTitle ] = useState(note.title);
-    const [ body, setBody ] = useState(note.body);
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [title, setTitle] = useState(note.title);
+    const [body, setBody] = useState(note.body);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const id = router.query.id;
-        const editNote = { title, body }
-        fetch('https://furnicraft.web.id/api/keep-me/'+id, {
-            method: "PUT",
-            headers: { "content-type" : "application/json" },
-            body: JSON.stringify(editNote),
-        }).then (
-            setIsLoading(true),
+        const editNote = { title, body };
+        
+        axios.put(`https://furnicraft.web.id/api/keep-me/${id}`, editNote, {
+            headers: { "Content-Type": "application/json" },
+        })
+        .then(() => {
+            setIsLoading(true);
             setTimeout(() => {
                 setIsLoading(false);
-                router.push('/')
-            }, 3000)
-        )
+                router.push('/');
+            }, 3000);
+        })
+        .catch((error) => {
+            console.error('Error updating data:', error);
+        });
     }
 
     const handleDeleteButton = () => {
         const id = router.query.id;
-        fetch(`https://furnicraft.web.id/api/keep-me/${id}`, {
-            method: "DELETE"
-        }).then(
-            setIsLoading(true),
+        
+        axios.delete(`https://furnicraft.web.id/api/keep-me/${id}`)
+        .then(() => {
+            setIsLoading(true);
             setTimeout(() => {
                 setIsLoading(false);
-                router.push('/')    
-            },3000)
-        )
+                router.push('/');
+            }, 3000);
+        })
+        .catch((error) => {
+            console.error('Error deleting data:', error);
+        });
     }
+
     return (
         <section className="create_blog">
             <article>
