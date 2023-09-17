@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch('https://furnicraft.web.id/api/keep-me')
+      fetch('http://127.0.0.1:8000/api/create/keep-me')
         .then((res) => {
           if (!res.ok) {
             throw new Error('Network response was not ok');

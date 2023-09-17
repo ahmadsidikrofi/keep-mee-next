@@ -6,7 +6,7 @@ import LoaderTriangle from "@/component/LoaderTriangle";
 import LoaderRect from "@/component/LoaderRect";
 
 export const getStaticPaths = async () => {
-    const res = await fetch('https://furnicraft.web.id/api/keep-me');
+    const res = await fetch('http://127.0.0.1:8000/api/api/keep-me');
     const data = await res.json();
     const paths = data.data.map((note) => {
         return {
@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id;
-    const res = await fetch('https://furnicraft.web.id/api/keep-me/' + id)
+    const res = await fetch('http://127.0.0.1:8000/api/keep-me/' + id)
     const data = await res.json();
     if (!data.data) {
         return {
