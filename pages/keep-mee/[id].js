@@ -66,7 +66,6 @@ const NoteDetail = () => {
     return (
         <section className="create_blog">
             <article>
-                <h2>{id}</h2>
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
                         <span></span>
