@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Icon } from '@iconify/react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import LoaderTriangle from "@/component/LoaderTriangle";
 import LoaderRect from "@/component/LoaderRect";
 import axios from 'axios';
+import { Editor } from "@tinymce/tinymce-react";
 
 const NoteDetail = () => {
     const router = useRouter();
@@ -13,6 +14,7 @@ const NoteDetail = () => {
     const [title, setTitle] = useState(""); // Tambahkan state untuk title
     const [body, setBody] = useState(""); // Tambahkan state untuk body
     const [isLoading, setIsLoading] = useState(false);
+    const editorRef = useRef(null);
 
     useEffect(() => {
         if (id) {
@@ -63,6 +65,10 @@ const NoteDetail = () => {
         });
     }
 
+    const handleBodyChange = (content, editor) => {
+        setBody(content)
+    }
+
     return (
         <section className="create_blog">
             <article>
@@ -79,10 +85,36 @@ const NoteDetail = () => {
                             {isLoading ? <LoaderTriangle /> : <button>Save</button>}
                         </div>
                         <input type="text" 
-                        value={title} 
-                        onChange={(e) => setTitle(e.target.value)}/>
-                        <textarea value={body} rows="20" className="edit_body"
-                        onChange={(e) => setBody(e.target.value)}></textarea>
+                            value={title} 
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <Editor
+                            apiKey='o61nnuwogclhd3z601n2k0zh479m9kbnsivauhaxrlu4jco0'
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            // initialValue={body}
+                            init={{
+                                height: 400,
+                                menubar: false,
+                                plugins: [
+                                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                    'insertdatetime', 'media', 'table', 'code', 'wordcount', 'emoticons'
+                                ],
+                                toolbar: 'undo redo | blocks | ' +
+                                    'bold italic forecolor | alignleft aligncenter ' +
+                                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                                    'removeformat | emoticons',
+                                content_style: 'body { font-family:poppins; font-size:14px }'
+                            }}
+                            value={body}
+                            onEditorChange={handleBodyChange}
+                        />
+
+                        {/* <textarea value={body} 
+                            rows="20" 
+                            className="edit_body"
+                            onChange={(e) => setBody(e.target.value)}>
+                        </textarea> */}
                     </form>
                 )}
             </article>

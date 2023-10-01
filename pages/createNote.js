@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Icon } from '@iconify/react';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import Loader from "@/component/Loader";
+import { Editor } from "@tinymce/tinymce-react";
 
 const CreateNote = () => {
     const [body, setBody] = useState('');
@@ -10,12 +10,14 @@ const CreateNote = () => {
     const [isLoading, setIsLoading] = useState(false)
     const date = new Date();
     const route = useRouter();
+    const editorRef = useRef(null);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     }
-    const handleBodyChange = (e) => {
-        setBody(e.target.value);
+    const handleBodyChange = (content, editor) => {
+        // setBody(e.target.value);
+        setBody(content)
     }
 
     const handleSubmiteNote = (e) => {
@@ -30,12 +32,13 @@ const CreateNote = () => {
             setTimeout(() => {
                 setIsLoading(false)
                 route.push('/')
-            }, 2000)   
-        ).catch ((err) => {
+            }, 2000)
+        ).catch((err) => {
             console.log("Note gagal ditambah", + err);
             setIsLoading(false);
         })
     }
+
     return (
         <section className="create_blog">
             <article>
@@ -43,7 +46,7 @@ const CreateNote = () => {
                     <span></span>
                     <div className="btn">
                         <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
-                        {isLoading ? 
+                        {isLoading ?
                             <div className="loader">
                                 <svg viewBox="0 0 80 80">
                                     <circle id="test" cx="40" cy="40" r="32"></circle>
@@ -52,7 +55,28 @@ const CreateNote = () => {
                             : <button>Save</button>}
                     </div>
                     <input value={title} onChange={handleTitleChange} type="text" placeholder="Ketik judul note" />
-                    <textarea value={body} onChange={handleBodyChange} placeholder="Buat note disini..." rows="20" className="edit_body"></textarea>
+                    <Editor
+                        apiKey='o61nnuwogclhd3z601n2k0zh479m9kbnsivauhaxrlu4jco0'
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        initialValue="<p>Buat note disini...</p>"
+                        init={{
+                            height: 400,
+                            menubar: false,
+                            plugins: [
+                                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                'insertdatetime', 'media', 'table', 'code', 'wordcount', 'emoticons'
+                            ],
+                            toolbar: 'undo redo | blocks | ' +
+                                'bold italic forecolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | emoticons',
+                            content_style: 'body { font-family:poppins; font-size:14px }'
+                        }}
+                        value={body} 
+                        onEditorChange={handleBodyChange}
+                    />
+                    {/* <textarea value={body} onChange={handleBodyChange} placeholder="Buat note disini..." className="edit_body" rows="20" ></textarea> */}
                 </form>
             </article>
         </section>
