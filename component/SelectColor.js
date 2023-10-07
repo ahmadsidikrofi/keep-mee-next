@@ -89,39 +89,43 @@ const SelectColor = ({ setBgColor }) => {
         };
     }, [isMenuOpen])
     return (
-        <motion.div
-            className="selectColor"
-            onClick={() => handleOpenMenu()}
-            onBlur={() => handleCloseMenu()}
-        >
-            <Select
-                options={colorOptions}
-                className='selectColor'
-                onChange={(e) => setBgColor(e.value)}
-                styles={colourStyles}
-                placeholder="Buat warna notemu"
-                components={{
-                    // Menggunakan AnimatePresence untuk mengendalikan opsi yang muncul atau menghilang
-                    Menu: ({ children, ...rest }) => (
-                        <AnimatePresence>
-                            {isMenuOpen && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: -100 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ 
-                                        type: "spring",
-                                        stiffness: 300,
-                                    }}
-                                >
-                                    <components.Menu {...rest}>{children}</components.Menu>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    ),
-                }}
-            />
-        </motion.div>
-        
+        <>
+            <motion.div
+                className="selectColor"
+                onClick={() => handleOpenMenu()}
+                onBlur={() => handleCloseMenu()}
+            >
+                <Select
+                    options={colorOptions}
+                    className='selectColor'
+                    onChange={(e) => setBgColor(e.value)}
+                    styles={colourStyles}
+                    placeholder="Buat warna notemu"
+                    components={{
+                        // Menggunakan AnimatePresence untuk mengendalikan opsi yang muncul atau menghilang
+                        Menu: ({ children, ...rest }) => (
+                            <AnimatePresence>
+                                {isMenuOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -100 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ 
+                                            type: "spring",
+                                            stiffness: 300,
+                                        }}
+                                    >
+                                        <components.Menu {...rest}>{children}</components.Menu>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        ),
+                    }}
+                />
+            </motion.div>
+            <div style={{ padding: "10px 10px 10px 40px", backgroundColor: "#f56565", borderRadius: "20px" }}>
+                    <h3>Pilih warna dengan tekan <strong style={{ color: "#333" }}>panah</strong> atau <strong style={{ color: "#333" }}>cari</strong></h3>
+            </div>
+        </>
     );
 }
 
