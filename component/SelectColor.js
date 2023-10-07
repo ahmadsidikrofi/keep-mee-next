@@ -31,7 +31,7 @@ const SelectColor = ({ setBgColor }) => {
             ...styles,
             position: 'absolute', 
             zIndex: 9999,
-            marginTop: "86px",
+            // marginTop: 0,
             borderRadius: 15,
         }),
         control: (styles) => ({ ...styles, borderRadius: 15, paddingLeft: 20 }),
@@ -49,10 +49,11 @@ const SelectColor = ({ setBgColor }) => {
                 color: isDisabled
                     ? '#ccc'
                     : isSelected
-                        ? chroma.contrast(color, 'white') > 2
+                        ? chroma.contrast(color, 'white') > 1
                             ? 'white'
                             : 'black'
                         : data.color,
+                    borderRadius: 10,
                 cursor: isDisabled ? 'not-allowed' : 'default',
 
                 ':active': {
@@ -79,7 +80,7 @@ const SelectColor = ({ setBgColor }) => {
     useEffect(() => {
         if (isMenuOpen) {
             let MenuScroll = document.querySelector(".selectColor");
-            MenuScroll.style.marginBottom = "100px"
+            MenuScroll.style.marginBottom = "200px"
             window.scroll({ top: document.body.scrollHeight, behavior: "smooth" })
         } else if (isMenuOpen === false) {
             let MenuScroll = document.querySelector(".selectColor");
@@ -99,10 +100,9 @@ const SelectColor = ({ setBgColor }) => {
                 onChange={(e) => setBgColor(e.value)}
                 styles={colourStyles}
                 placeholder="Buat warna notemu"
-                isSearchable={false}
                 components={{
                     // Menggunakan AnimatePresence untuk mengendalikan opsi yang muncul atau menghilang
-                    MenuList: ({ children, ...rest }) => (
+                    Menu: ({ children, ...rest }) => (
                         <AnimatePresence>
                             {isMenuOpen && (
                                 <motion.div
@@ -112,7 +112,6 @@ const SelectColor = ({ setBgColor }) => {
                                         type: "spring",
                                         stiffness: 300,
                                     }}
-                                    style={{ backgroundColor: "#333" }}
                                 >
                                     <components.Menu {...rest}>{children}</components.Menu>
                                 </motion.div>
@@ -122,6 +121,7 @@ const SelectColor = ({ setBgColor }) => {
                 }}
             />
         </motion.div>
+        
     );
 }
 

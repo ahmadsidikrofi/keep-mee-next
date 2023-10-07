@@ -81,6 +81,9 @@ const CreateNote = () => {
                     {/* <textarea value={body} onChange={handleBodyChange} placeholder="Buat note disini..." className="edit_body" rows="20" ></textarea> */}
                     <SelectColor setBgColor={setBgColor} />
                 </form>
+                <div style={{ padding: "10px 10px 10px 40px", backgroundColor: "#f56565", borderRadius: "20px" }}>
+                    <h3>Pilih warna dengan tekan <strong style={{ color: "#333" }}>panah</strong> atau <strong style={{ color: "#333" }}>cari</strong></h3>
+                </div>
             </article>
         </section>
     )
