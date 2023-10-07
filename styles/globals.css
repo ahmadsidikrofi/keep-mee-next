@@ -214,6 +214,12 @@ textarea:focus {
 	justify-content: space-between;
 }
 
+/* Select Color */
+.selectColor {
+	margin-top: 30px;
+	border-radius: 15;
+}
+
 /* Loading INDEX */
 .loader {
 	--path: #2f3545;
@@ -383,29 +389,24 @@ textarea:focus {
 	justify-content: space-between;
 }
 
-/* .header .save_dark_mode {
-	font-family: poppins;
-	background-color: #e1e1e1;
-	border: none;
-	border-radius: 15px;
-	padding: 5px 10px 5px 10px;
-	transition: .3s;
-} */
 @media screen and (min-width: 467px) {
 	.header .switch {
 		margin-left: 35%;
 	}
 }
+
 @media screen and (min-width: 662px) {
 	.header .switch {
 		margin-left: 50%;
 	}
 }
+
 @media screen and (min-width: 1200px) {
 	.header .switch {
 		margin-left: 65%;
 	}
 }
+
 /* .header .save_dark_mode:hover {
 	opacity: 1;
 	background-color: #fef68a;
@@ -416,7 +417,8 @@ textarea:focus {
 	background-color: black;
 }
 
-.dark-mode h1, .dark-mode h3 {
+.dark-mode h1,
+.dark-mode h3 {
 	color: white;
 }
 
@@ -427,15 +429,15 @@ textarea:focus {
 	display: inline-block;
 	width: 64px;
 	height: 34px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
 	position: absolute;
 	cursor: pointer;
 	top: 0;
@@ -445,9 +447,9 @@ textarea:focus {
 	background-color: #73C0FC;
 	transition: .4s;
 	border-radius: 30px;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
 	position: absolute;
 	content: "";
 	height: 30px;
@@ -458,18 +460,18 @@ textarea:focus {
 	z-index: 2;
 	background-color: #e8e8e8;
 	transition: .4s;
-  }
-  
-  .sun svg {
+}
+
+.sun svg {
 	position: absolute;
 	top: 6px;
 	left: 36px;
 	z-index: 1;
 	width: 24px;
 	height: 24px;
-  }
-  
-  .moon svg {
+}
+
+.moon svg {
 	fill: #73C0FC;
 	position: absolute;
 	top: 5px;
@@ -477,54 +479,56 @@ textarea:focus {
 	z-index: 1;
 	width: 24px;
 	height: 24px;
-  }
-  
-  /* .switch:hover */.sun svg {
+}
+
+/* .switch:hover */
+.sun svg {
 	animation: rotate 15s linear infinite;
-  }
-  
-  @keyframes rotate {
-   
+}
+
+@keyframes rotate {
+
 	0% {
-	  transform: rotate(0);
+		transform: rotate(0);
 	}
-  
+
 	100% {
-	  transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
-  }
-  
-  /* .switch:hover */.moon svg {
+}
+
+/* .switch:hover */
+.moon svg {
 	animation: tilt 5s linear infinite;
-  }
-  
-  @keyframes tilt {
-   
+}
+
+@keyframes tilt {
+
 	0% {
-	  transform: rotate(0deg);
+		transform: rotate(0deg);
 	}
-  
+
 	25% {
-	  transform: rotate(-10deg);
+		transform: rotate(-10deg);
 	}
-  
+
 	75% {
-	  transform: rotate(10deg);
+		transform: rotate(10deg);
 	}
-  
+
 	100% {
-	  transform: rotate(0deg);
+		transform: rotate(0deg);
 	}
-  }
-  
-  .input:checked + .slider {
+}
+
+.input:checked+.slider {
 	background-color: #183153;
-  }
-  
-  .input:focus + .slider {
+}
+
+.input:focus+.slider {
 	box-shadow: 0 0 1px #183153;
-  }
-  
-  .input:checked + .slider:before {
+}
+
+.input:checked+.slider:before {
 	transform: translateX(30px);
-  }
+}

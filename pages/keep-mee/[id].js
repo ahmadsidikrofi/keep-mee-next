@@ -11,8 +11,9 @@ const NoteDetail = () => {
     const router = useRouter();
     const {id} = router.query;
     const [datas, setDatas] = useState(null);
-    const [title, setTitle] = useState(""); // Tambahkan state untuk title
-    const [body, setBody] = useState(""); // Tambahkan state untuk body
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [bgColor, setBgColor] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const editorRef = useRef(null);
 
@@ -22,8 +23,9 @@ const NoteDetail = () => {
                 .then((res) => {
                     const data = res.data.data;
                     setDatas(data);
-                    setTitle(data.title); // Set initial value for title
-                    setBody(data.body);   // Set initial value for body
+                    setTitle(data.title);
+                    setBody(data.body);
+                    setBgColor(data.bgColor);
                 })
                 .catch((error) => {
                     console.error('Error fetching data:', error);
@@ -33,7 +35,7 @@ const NoteDetail = () => {
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
-        const editNote = { title, body };
+        const editNote = { title, body, bgColor };
         
         axios.put(`https://furnicraft.web.id/api/keep-me/${id}`, editNote, {
             headers: { "Content-Type": "application/json" },

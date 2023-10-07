@@ -42,7 +42,7 @@ const Home = () => {
         : true).map((note) => {
           return (
             <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
-              <div className="note">
+              <div className="note" style={{ backgroundColor: note.bgColor }}>
                 <p>{note.title}</p>
                 <div className="note-footer">
                   <small>{note.date}</small>

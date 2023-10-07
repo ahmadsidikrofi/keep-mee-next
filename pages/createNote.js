@@ -3,15 +3,17 @@ import { Icon } from '@iconify/react';
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Editor } from "@tinymce/tinymce-react";
+import SelectColor from "@/component/SelectColor";
 
 const CreateNote = () => {
     const [body, setBody] = useState('');
     const [title, setTitle] = useState('');
-    const [isLoading, setIsLoading] = useState(false)
+    const [bgColor, setBgColor] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const date = new Date();
     const route = useRouter();
     const editorRef = useRef(null);
-
+    
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     }
@@ -22,7 +24,7 @@ const CreateNote = () => {
 
     const handleSubmiteNote = (e) => {
         e.preventDefault();
-        const newNote = { body, title, date: date.toLocaleDateString() };
+        const newNote = { body, title, bgColor, date: date.toLocaleDateString() };
         fetch('https://furnicraft.web.id/api/keep-me', {
             method: "POST",
             headers: { "content-type": "application/json" },
@@ -77,6 +79,7 @@ const CreateNote = () => {
                         onEditorChange={handleBodyChange}
                     />
                     {/* <textarea value={body} onChange={handleBodyChange} placeholder="Buat note disini..." className="edit_body" rows="20" ></textarea> */}
+                    <SelectColor setBgColor={setBgColor} />
                 </form>
             </article>
         </section>
