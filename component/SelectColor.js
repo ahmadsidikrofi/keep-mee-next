@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SelectColor = ({ setBgColor }) => {
-    const [ isMenuOpen, setIsMenuOpen ] = useState(false)
+    const [ isMenuOpen, setIsMenuOpen ] = useState(false);
     const colorOptions = [ 
         { value: '#F06292', label: 'Barbie', color: '#F06292' },
         { value: '#BA68C8', label: 'Scorpio', color: '#BA68C8' },
@@ -27,6 +27,13 @@ const SelectColor = ({ setBgColor }) => {
         },
     });
     const colourStyles = {
+        menu: (styles) => ({
+            ...styles,
+            position: 'absolute', 
+            zIndex: 9999,
+            marginTop: "130px",
+            borderRadius: 15,
+        }),
         control: (styles) => ({ ...styles, borderRadius: 15, paddingLeft: 20 }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             const color = chroma(data.color);
@@ -72,7 +79,7 @@ const SelectColor = ({ setBgColor }) => {
     useEffect(() => {
         if (isMenuOpen) {
             let MenuScroll = document.querySelector(".selectColor");
-            MenuScroll.style.marginBottom = "200px"
+            MenuScroll.style.marginBottom = "150px"
             window.scroll({ top: document.body.scrollHeight, behavior: "smooth" })
         } else if (isMenuOpen === false) {
             let MenuScroll = document.querySelector(".selectColor");
@@ -88,11 +95,13 @@ const SelectColor = ({ setBgColor }) => {
         >
             <Select
                 options={colorOptions}
+                className='selectColor'
                 onChange={(e) => setBgColor(e.value)}
                 styles={colourStyles}
+                placeholder="Buat warna notemu"
                 components={{
                     // Menggunakan AnimatePresence untuk mengendalikan opsi yang muncul atau menghilang
-                    Menu: ({ children, ...rest }) => (
+                    MenuList: ({ children, ...rest }) => (
                         <AnimatePresence>
                             {isMenuOpen && (
                                 <motion.div
@@ -102,6 +111,7 @@ const SelectColor = ({ setBgColor }) => {
                                         type: "spring",
                                         stiffness: 300,
                                     }}
+                                    style={{ backgroundColor: "#333" }}
                                 >
                                     <components.Menu {...rest}>{children}</components.Menu>
                                 </motion.div>
