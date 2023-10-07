@@ -49,7 +49,7 @@ const Home = () => {
                       boxShadow: "0px 0px 8px #333",
                       transition: {
                         type: "spring",
-                        stiffness: 700,
+                        stiffness: 120,
                       }
                     }}
                   >
