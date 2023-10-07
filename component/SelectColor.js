@@ -31,7 +31,7 @@ const SelectColor = ({ setBgColor }) => {
             ...styles,
             position: 'absolute', 
             zIndex: 9999,
-            marginTop: "130px",
+            marginTop: "86px",
             borderRadius: 15,
         }),
         control: (styles) => ({ ...styles, borderRadius: 15, paddingLeft: 20 }),
@@ -79,7 +79,7 @@ const SelectColor = ({ setBgColor }) => {
     useEffect(() => {
         if (isMenuOpen) {
             let MenuScroll = document.querySelector(".selectColor");
-            MenuScroll.style.marginBottom = "150px"
+            MenuScroll.style.marginBottom = "100px"
             window.scroll({ top: document.body.scrollHeight, behavior: "smooth" })
         } else if (isMenuOpen === false) {
             let MenuScroll = document.querySelector(".selectColor");
@@ -99,6 +99,7 @@ const SelectColor = ({ setBgColor }) => {
                 onChange={(e) => setBgColor(e.value)}
                 styles={colourStyles}
                 placeholder="Buat warna notemu"
+                isSearchable={false}
                 components={{
                     // Menggunakan AnimatePresence untuk mengendalikan opsi yang muncul atau menghilang
                     MenuList: ({ children, ...rest }) => (
