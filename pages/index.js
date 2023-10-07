@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react'
 import Loader from '@/component/Loader';
 import axios from 'axios'; // Import axios
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,20 +38,29 @@ const Home = () => {
         <input type="text" value={searchNote} onChange={(e) => setSearchNote(e.target.value)} placeholder='ketik untuk mencari...' />
       </div>
       <div className="notes-list">
-        {isLoading ? ( <Loader />) 
-        : notes && notes.filter((note) => searchNote ? note.title.toLowerCase().includes(searchNote.toLowerCase()) 
-        : true).map((note) => {
-          return (
-            <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
-              <div className="note" style={{ backgroundColor: note.bgColor }}>
-                <p><strong>{note.title}</strong></p>
-                <div className="note-footer">
-                  <small>{note.date}</small>
-                </div>
-              </div>
-            </Link>
-          )
-        })}
+        {isLoading ? (<Loader />)
+          : notes && notes.filter((note) => searchNote ? note.title.toLowerCase().includes(searchNote.toLowerCase())
+            : true).map((note) => {
+              return (
+                <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
+                  <motion.div className="note" style={{ backgroundColor: note.bgColor }}
+                    whileHover={{
+                      scale: 1.08,
+                      boxShadow: "0px 0px 8px #333",
+                      transition: {
+                        type: "spring",
+                        stiffness: 700,
+                      }
+                    }}
+                  >
+                    <p><strong>{note.title}</strong></p>
+                    <div className="note-footer">
+                      <small>{note.date}</small>
+                    </div>
+                  </motion.div>
+                </Link>
+              )
+            })}
       </div>
     </>
   )

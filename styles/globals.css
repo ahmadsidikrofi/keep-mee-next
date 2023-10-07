@@ -388,6 +388,20 @@ textarea:focus {
 	align-items: center;
 	justify-content: space-between;
 }
+/* .header .note-svg {
+	width: 80px;
+	overflow: hidden;
+	stroke: #fff;
+	stroke-width: 2;
+	stroke-linejoin: round;
+	stroke-linecap: round; 
+} */
+
+.dark-mode .noteSvg {
+	background-color: #ffffff;
+}
+
+/* .dark-mode  */
 
 @media screen and (min-width: 467px) {
 	.header .switch {
