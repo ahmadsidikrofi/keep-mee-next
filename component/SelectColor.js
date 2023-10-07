@@ -90,6 +90,9 @@ const SelectColor = ({ setBgColor }) => {
     }, [isMenuOpen])
     return (
         <>
+            <div style={{ padding: "10px 10px 10px 40px", marginTop: "20px", backgroundColor: "#f56565", borderRadius: "20px" }}>
+                <h3>Pilih warna dengan tekan <strong style={{ color: "#333" }}>panah</strong> atau <strong style={{ color: "#333" }}>cari</strong></h3>
+            </div>
             <motion.div
                 className="selectColor"
                 onClick={() => handleOpenMenu()}
@@ -122,9 +125,6 @@ const SelectColor = ({ setBgColor }) => {
                     }}
                 />
             </motion.div>
-            <div style={{ padding: "10px 10px 10px 40px", backgroundColor: "#f56565", borderRadius: "20px" }}>
-                    <h3>Pilih warna dengan tekan <strong style={{ color: "#333" }}>panah</strong> atau <strong style={{ color: "#333" }}>cari</strong></h3>
-            </div>
         </>
     );
 }
