@@ -63,7 +63,7 @@ const CreateNote = () => {
                         initialValue="<p>Buat note disini...</p>"
                         init={{
                             height: 400,
-                            menubar: false,
+                            menubar: true,
                             plugins: [
                                 'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                                 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',

@@ -42,8 +42,10 @@ const Home = () => {
           : notes && notes.filter((note) => searchNote ? note.title.toLowerCase().includes(searchNote.toLowerCase())
             : true).map((note) => {
               return (
-                <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
+                <Link href={`/keep-mee/${note.slug}`} key={note.id} className="link">
                   <motion.div className="note" style={{ backgroundColor: note.bgColor }}
+                    initial={{ opacity: 0, y: -100, x: -100 }}
+                    animate={{ opacity: 1, y: 0, x: 0 }}
                     whileHover={{
                       scale: 1.08,
                       boxShadow: "0px 0px 8px #333",

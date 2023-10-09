@@ -9,7 +9,7 @@ import { Editor } from "@tinymce/tinymce-react";
 
 const NoteDetail = () => {
     const router = useRouter();
-    const {id} = router.query;
+    const {slug} = router.query;
     const [datas, setDatas] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -18,8 +18,8 @@ const NoteDetail = () => {
     const editorRef = useRef(null);
 
     useEffect(() => {
-        if (id) {
-            axios.get(`https://furnicraft.web.id/api/keep-me/${id}`)
+        if (slug) {
+            axios.get(`https://furnicraft.web.id/api/keep-me/${slug}`)
                 .then((res) => {
                     const data = res.data.data;
                     setDatas(data);
@@ -31,13 +31,13 @@ const NoteDetail = () => {
                     console.error('Error fetching data:', error);
                 });
         }
-    }, [id]);
+    }, [slug]);
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const editNote = { title, body, bgColor };
         
-        axios.put(`https://furnicraft.web.id/api/keep-me/${id}`, editNote, {
+        axios.put(`https://furnicraft.web.id/api/keep-me/${slug}`, editNote, {
             headers: { "Content-Type": "application/json" },
         })
         .then(() => {
@@ -54,7 +54,7 @@ const NoteDetail = () => {
 
     const handleDeleteButton = (e) => {
         e.preventDefault();
-        axios.delete(`https://furnicraft.web.id/api/keep-me/${id}`)
+        axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
         .then(() => {
             setIsLoading(true);
             setTimeout(() => {
@@ -96,7 +96,7 @@ const NoteDetail = () => {
                             // initialValue={body}
                             init={{
                                 height: 400,
-                                menubar: false,
+                                menubar: true,
                                 plugins: [
                                     'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                                     'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',

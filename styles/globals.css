@@ -122,7 +122,7 @@ textarea:focus {
 /* Create Note */
 .dark-mode .create_blog article input,
 .dark-mode .create_blog article textarea {
-	background-color: #000000;
+	background-color: #161a1d;
 	color: #ffffff;
 }
 
@@ -429,7 +429,7 @@ textarea:focus {
 } */
 
 .dark-mode {
-	background-color: black;
+	background-color: #161a1d;
 }
 
 .dark-mode h1,

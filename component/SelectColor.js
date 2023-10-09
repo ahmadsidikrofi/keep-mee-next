@@ -6,11 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 const SelectColor = ({ setBgColor }) => {
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
     const colorOptions = [ 
-        { value: '#F06292', label: 'Barbie', color: '#F06292' },
+        { value: '#F18DBC', label: 'Barbie', color: '#F18DBC' },
         { value: '#BA68C8', label: 'Scorpio', color: '#BA68C8' },
         { value: '#FFD54F', label: 'Leo', color: '#FFD54F' },
         { value: '#4FC3F7', label: 'Gemini', color: '#4FC3F7' },
         { value: '#AED581', label: 'Taurus', color: '#AED581' },
+        { value: '#f25c54', label: 'Chronos', color: '#f25c54' }
     ];
     const dot = (color = 'transparent') => ({
         alignItems: 'center',
@@ -33,6 +34,8 @@ const SelectColor = ({ setBgColor }) => {
             zIndex: 9999,
             // marginTop: 0,
             borderRadius: 15,
+            fontWeight: 'bold',
+            backgroundColor: '#161a1d'
         }),
         control: (styles) => ({ ...styles, borderRadius: 15, paddingLeft: 20 }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -80,7 +83,7 @@ const SelectColor = ({ setBgColor }) => {
     useEffect(() => {
         if (isMenuOpen) {
             let MenuScroll = document.querySelector(".selectColor");
-            MenuScroll.style.marginBottom = "200px"
+            MenuScroll.style.marginBottom = "240px"
             window.scroll({ top: document.body.scrollHeight, behavior: "smooth" })
         } else if (isMenuOpen === false) {
             let MenuScroll = document.querySelector(".selectColor");
