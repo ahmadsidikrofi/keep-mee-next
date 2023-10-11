@@ -6,6 +6,7 @@ import LoaderTriangle from "@/component/LoaderTriangle";
 import LoaderRect from "@/component/LoaderRect";
 import axios from 'axios';
 import { Editor } from "@tinymce/tinymce-react";
+import { motion } from "framer-motion";
 import Pinned from "@/component/Pinned";
 
 const NoteDetail = () => {
@@ -16,6 +17,7 @@ const NoteDetail = () => {
     const [body, setBody] = useState("");
     const [bgColor, setBgColor] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isLongPress, setIsLongPress] = useState(false);
     const editorRef = useRef(null);
 
     useEffect(() => {
@@ -55,17 +57,25 @@ const NoteDetail = () => {
 
     const handleDeleteButton = (e) => {
         e.preventDefault();
-        axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
-        .then(() => {
-            setIsLoading(true);
+        if (isLongPress) {            
+            axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
+            .then(() => {
+                setIsLoading(true);
+                setTimeout(() => {
+                    setIsLoading(false);
+                    router.push('/');
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error('tekan kurang lama')
+            });
+        } else if (!isLongPress) {
+            const tooltip = document.querySelector('.tooltip');
+            tooltip.style.visibility = 'visible';
             setTimeout(() => {
-                setIsLoading(false);
-                router.push('/');
-            }, 3000);
-        })
-        .catch((error) => {
-            console.error('Error deleting data:', error);
-        });
+                tooltip.style.visibility = 'hidden'
+            }, 1500)
+        }
     }
 
     const handleBodyChange = (content, editor) => {
@@ -78,18 +88,48 @@ const NoteDetail = () => {
         localStorage.setItem(`${note.slug}_pinned`, note.pinned)
     };
 
+    const handleLongPressStart = () => {
+        setIsLongPress(false);
+        setTimeout(() => {
+            setIsLongPress(true);
+        }, 100)
+    }
+    const handleLongPressEnd = () => {
+        if (isLongPress) {
+            setIsLongPress(false);
+            clearTimeout()
+        }
+    }
+
+    
     return (
         <section className="create_blog">
             <article>
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
-                        <span></span>
+                        {/* <span></span> */}
+                        <div className="tooltip">
+                            <span className='tooltipText'>Tahan lama 3 detik</span>
+                        </div>
                         <div className="btn">
                             <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
+
                             {isLoading ? <LoaderRect />
-                                : <button onClick={handleDeleteButton} className="delete_button">
+                                : <motion.button className={`delete_button ${isLongPress ? 'fill-animation active' : ''}`}
+                                    id="delete_button"
+                                    onMouseDown={handleLongPressStart}
+                                    onMouseUp={handleLongPressEnd}
+                                    onMouseLeave={handleLongPressEnd}
+                                    transition={{ 
+                                        duration: 3
+                                    }}
+                                    whileTap={{ 
+                                        backgroundColor: isLongPress ? '#ad203f' : '#ee3d63',
+                                     }}
+                                    onTap={handleDeleteButton}
+                                >
                                     <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
-                                </button>
+                                </motion.button>
                             }
                             {isLoading ? <LoaderTriangle /> : <button>Save</button>}
                         </div>
