@@ -6,6 +6,7 @@ import LoaderTriangle from "@/component/LoaderTriangle";
 import LoaderRect from "@/component/LoaderRect";
 import axios from 'axios';
 import { Editor } from "@tinymce/tinymce-react";
+import Pinned from "@/component/Pinned";
 
 const NoteDetail = () => {
     const router = useRouter();
@@ -71,6 +72,12 @@ const NoteDetail = () => {
         setBody(content)
     }
 
+    const togglePin = (note) => {
+        // Simpan status "pinned" secara lokal (gunakan localStorage)
+        note.pinned = !note.pinned
+        localStorage.setItem(`${note.slug}_pinned`, note.pinned)
+    };
+
     return (
         <section className="create_blog">
             <article>
@@ -86,10 +93,13 @@ const NoteDetail = () => {
                             }
                             {isLoading ? <LoaderTriangle /> : <button>Save</button>}
                         </div>
-                        <input type="text" 
-                            value={title} 
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <input type="text" 
+                                value={title} 
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <Pinned note={datas} togglePin={togglePin} style={{ marginTop: 50 }} />
+                        </div>
                         <Editor
                             apiKey='o61nnuwogclhd3z601n2k0zh479m9kbnsivauhaxrlu4jco0'
                             onInit={(evt, editor) => editorRef.current = editor}
