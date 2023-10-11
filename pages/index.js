@@ -75,7 +75,7 @@ const Home = () => {
                       }}
                     >
                       <Link href={`/keep-mee/${note.slug}`} key={note.id} className="link">
-                        <p><strong>{note.title}</strong></p>
+                        <p style={{ paddingBottom: 80 }}><strong>{note.title}</strong></p>
                       </Link>
                       <div className="note-footer">
                       <small>{note.date}</small>
