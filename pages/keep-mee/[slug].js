@@ -94,12 +94,6 @@ const NoteDetail = () => {
             setIsLongPress(true);
         }, 100)
     }
-    const handleLongPressEnd = () => {
-        if (isLongPress) {
-            setIsLongPress(false);
-            clearTimeout()
-        }
-    }
 
     
     return (
@@ -118,15 +112,13 @@ const NoteDetail = () => {
                                 : <motion.button className={`delete_button ${isLongPress ? 'fill-animation active' : ''}`}
                                     id="delete_button"
                                     onMouseDown={handleLongPressStart}
-                                    onMouseUp={handleLongPressEnd}
-                                    onMouseLeave={handleLongPressEnd}
                                     transition={{ 
-                                        duration: 3
+                                        duration: 2
                                     }}
                                     whileTap={{ 
                                         backgroundColor: isLongPress ? '#ad203f' : '#ee3d63',
                                      }}
-                                    onTap={handleDeleteButton}
+                                    onClick={handleDeleteButton}
                                 >
                                     <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
                                 </motion.button>
