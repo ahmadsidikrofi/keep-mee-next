@@ -11,13 +11,14 @@ import Pinned from "@/component/Pinned";
 
 const NoteDetail = () => {
     const router = useRouter();
-    const {slug} = router.query;
+    const { slug } = router.query;
     const [datas, setDatas] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [bgColor, setBgColor] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isLongPress, setIsLongPress] = useState(false);
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const editorRef = useRef(null);
 
     useEffect(() => {
@@ -39,26 +40,10 @@ const NoteDetail = () => {
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const editNote = { title, body, bgColor };
-        
+
         axios.put(`https://furnicraft.web.id/api/keep-me/${slug}`, editNote, {
             headers: { "Content-Type": "application/json" },
         })
-        .then(() => {
-            setIsLoading(true);
-            setTimeout(() => {
-                setIsLoading(false);
-                router.push('/');
-            }, 3000);
-        })
-        .catch((error) => {
-            console.error('Error updating data:', error);
-        });
-    }
-
-    const handleDeleteButton = (e) => {
-        e.preventDefault();
-        if (isLongPress) {            
-            axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
             .then(() => {
                 setIsLoading(true);
                 setTimeout(() => {
@@ -67,15 +52,23 @@ const NoteDetail = () => {
                 }, 3000);
             })
             .catch((error) => {
-                console.error('tekan kurang lama')
+                console.error('Error updating data:', error);
             });
-        } else if (!isLongPress) {
-            const tooltip = document.querySelector('.tooltip');
-            tooltip.style.visibility = 'visible';
-            setTimeout(() => {
-                tooltip.style.visibility = 'hidden'
-            }, 1500)
-        }
+    }
+
+    const handleDeleteButton = (e) => {
+        e.preventDefault();
+        axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
+            .then(() => {
+                setIsLoading(true);
+                setTimeout(() => {
+                    setIsLoading(false);
+                    router.push('/');
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error('Data gagal ditangkap')
+            });
     }
 
     const handleBodyChange = (content, editor) => {
@@ -88,37 +81,61 @@ const NoteDetail = () => {
         localStorage.setItem(`${note.slug}_pinned`, note.pinned)
     };
 
-    const handleLongPressStart = () => {
-        setIsLongPress(false);
-        setTimeout(() => {
-            setIsLongPress(true);
-        }, 1000)
+    // const handleLongPressStart = () => {
+    //     setIsLongPress(false);
+    //     setTimeout(() => {
+    //         setIsLongPress(true);
+    //     }, 1000)
+    // }
+    const toolTipVariants = {
+        'hidden': { y: 150, opacity: 0 },
+        'visible': { 
+            y: 0, 
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                stiffness: 120
+            }
+        },
+
+    }
+    const handleToolTip = (e) => {
+        const tooltip = document.querySelector('.tooltip');
+        tooltip.style.visibility = 'visible';
+        e.preventDefault();
+        setIsTooltipVisible(true);
+    }
+    const handleCloseToolTip = (e) => {
+        const tooltip = document.querySelector('.tooltip');
+        tooltip.style.visibility = 'hidden';
+        e.preventDefault();
+        setIsTooltipVisible(false);
     }
 
-    
     return (
         <section className="create_blog">
             <article>
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
                         {/* <span></span> */}
-                        <div className="tooltip">
-                            <span className='tooltipText'>Tahan lama 3 detik</span>
-                        </div>
+                        <motion.div className="tooltip"
+                            variants={toolTipVariants}
+                            initial="hidden"
+                            animate={isTooltipVisible ? "visible" : "hidden"}
+                        >
+                            <div className='toolTipBody'>
+                                <button style={{ padding: 10, borderRadius: 15, backgroundColor: '#ad203f', border: 'none', color: 'white', marginRight: 30, cursor: "pointer" }}
+                                onClick={handleDeleteButton}>Hapus</button>
+                                <Icon icon="material-symbols:close" onClick={handleCloseToolTip} style={{ cursor: 'pointer', marginBottom: 3, marginTop: 0, background: '#333', borderRadius: 20,padding: 2 }}/>
+                            </div>
+                        </motion.div>
                         <div className="btn">
                             <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
 
                             {isLoading ? <LoaderRect />
                                 : <motion.button className={`delete_button`}
                                     id="delete_button"
-                                    onMouseDown={handleLongPressStart}
-                                    transition={{ 
-                                        duration: 2
-                                    }}
-                                    whileTap={{ 
-                                        backgroundColor: isLongPress ? '#7433c9' : '#ee3d63',
-                                     }}
-                                    onClick={handleDeleteButton}
+                                    onClick={handleToolTip}
                                 >
                                     <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
                                 </motion.button>
@@ -126,8 +143,8 @@ const NoteDetail = () => {
                             {isLoading ? <LoaderTriangle /> : <button>Save</button>}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <input type="text" 
-                                value={title} 
+                            <input type="text"
+                                value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
                             <Pinned note={datas} togglePin={togglePin} style={{ marginTop: 50 }} />

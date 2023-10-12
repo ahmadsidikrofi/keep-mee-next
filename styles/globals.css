@@ -751,20 +751,19 @@ textarea:focus {
 /* Tooltip Delete button */
 .tooltip {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	visibility: hidden;
 	margin-top: 0;
 }
 
-.tooltipText {
+.toolTipBody {
     text-align: center;
     margin-bottom: 10px;
-    /* margin-right: 20px; */
-    padding: 10px;
-    background: #ad203f;
+    padding: 15px;
+    background: #ee3d63;
     color: white;
-    width: 185px; /* Perbaikan: Tambahkan 'px' di sini */
-    border-radius: 20px;
+    width: 130px;
+    border-radius: 30px;
     left: 50%;
     transform: translateX(-5%); /* Untuk mengatur posisi tooltip ke tengah */
 }
@@ -775,6 +774,6 @@ textarea:focus {
     left: 50%;
     border-width: 10px;
     border-style: solid;
-    border-color: #ad203f transparent transparent transparent;
+    border-color: #ee3d63 transparent transparent transparent;
     transform: translateX(-50%);
 }
