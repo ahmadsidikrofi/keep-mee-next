@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	font-family: "quicksand";
+	font-family: "quicksand", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -756,9 +756,9 @@ textarea:focus {
 	margin-top: 0;
 }
 
-.toolTipBody {
+.tooltipBody {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 15px;
     background: #ee3d63;
     color: white;
@@ -767,7 +767,7 @@ textarea:focus {
     left: 50%;
     transform: translateX(-5%); /* Untuk mengatur posisi tooltip ke tengah */
 }
-.tooltipText::before {
+.tooltipBody::before {
     content: "";
     position: absolute;
     top: 100%;
@@ -776,4 +776,24 @@ textarea:focus {
     border-style: solid;
     border-color: #ee3d63 transparent transparent transparent;
     transform: translateX(-50%);
+}
+
+.tooltipBtn {
+	font-family: 'quicksand';
+	font-weight: bold;
+	padding: 10px;
+	border-radius: 15px;
+	background-color: #ad203f;
+	border: none;
+	color: #ffffff;
+	margin-right: 30px;
+	cursor: pointer;
+}
+.closeTooltip {
+	cursor: pointer;
+	margin-bottom: 3px;
+	margin-top: 0;
+	background-color: #333;
+	border-radius: 20px;
+	padding: 2px;
 }

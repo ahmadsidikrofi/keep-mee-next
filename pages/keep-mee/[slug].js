@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Editor } from "@tinymce/tinymce-react";
 import { motion } from "framer-motion";
 import Pinned from "@/component/Pinned";
+import Tooltip from "@/component/Tooltip";
 
 const NoteDetail = () => {
     const router = useRouter();
@@ -17,7 +18,6 @@ const NoteDetail = () => {
     const [body, setBody] = useState("");
     const [bgColor, setBgColor] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isLongPress, setIsLongPress] = useState(false);
     const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const editorRef = useRef(null);
 
@@ -65,6 +65,8 @@ const NoteDetail = () => {
                     setIsLoading(false);
                     router.push('/');
                 }, 3000);
+                const tooltip = document.querySelector('.tooltip');
+                tooltip.style.visibility = 'hidden';
             })
             .catch((error) => {
                 console.error('Data gagal ditangkap')
@@ -81,35 +83,11 @@ const NoteDetail = () => {
         localStorage.setItem(`${note.slug}_pinned`, note.pinned)
     };
 
-    // const handleLongPressStart = () => {
-    //     setIsLongPress(false);
-    //     setTimeout(() => {
-    //         setIsLongPress(true);
-    //     }, 1000)
-    // }
-    const toolTipVariants = {
-        'hidden': { y: 150, opacity: 0 },
-        'visible': { 
-            y: 0, 
-            opacity: 1,
-            transition: {
-                type: 'spring',
-                stiffness: 120
-            }
-        },
-
-    }
     const handleToolTip = (e) => {
         const tooltip = document.querySelector('.tooltip');
         tooltip.style.visibility = 'visible';
         e.preventDefault();
         setIsTooltipVisible(true);
-    }
-    const handleCloseToolTip = (e) => {
-        const tooltip = document.querySelector('.tooltip');
-        tooltip.style.visibility = 'hidden';
-        e.preventDefault();
-        setIsTooltipVisible(false);
     }
 
     return (
@@ -118,17 +96,10 @@ const NoteDetail = () => {
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
                         {/* <span></span> */}
-                        <motion.div className="tooltip"
-                            variants={toolTipVariants}
-                            initial="hidden"
-                            animate={isTooltipVisible ? "visible" : "hidden"}
-                        >
-                            <div className='toolTipBody'>
-                                <button style={{ padding: 10, borderRadius: 15, backgroundColor: '#ad203f', border: 'none', color: 'white', marginRight: 30, cursor: "pointer" }}
-                                onClick={handleDeleteButton}>Hapus</button>
-                                <Icon icon="material-symbols:close" onClick={handleCloseToolTip} style={{ cursor: 'pointer', marginBottom: 3, marginTop: 0, background: '#333', borderRadius: 20,padding: 2 }}/>
-                            </div>
-                        </motion.div>
+                        <Tooltip handleDeleteButton={handleDeleteButton}  
+                            isTooltipVisible={isTooltipVisible} 
+                            setIsTooltipVisible={setIsTooltipVisible}
+                        />
                         <div className="btn">
                             <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
 
