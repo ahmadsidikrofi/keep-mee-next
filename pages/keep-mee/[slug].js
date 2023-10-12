@@ -92,7 +92,7 @@ const NoteDetail = () => {
         setIsLongPress(false);
         setTimeout(() => {
             setIsLongPress(true);
-        }, 100)
+        }, 1000)
     }
 
     
@@ -109,14 +109,14 @@ const NoteDetail = () => {
                             <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>
 
                             {isLoading ? <LoaderRect />
-                                : <motion.button className={`delete_button ${isLongPress ? 'fill-animation active' : ''}`}
+                                : <motion.button className={`delete_button`}
                                     id="delete_button"
                                     onMouseDown={handleLongPressStart}
                                     transition={{ 
                                         duration: 2
                                     }}
                                     whileTap={{ 
-                                        backgroundColor: isLongPress ? '#ad203f' : '#ee3d63',
+                                        backgroundColor: isLongPress ? '#7433c9' : '#ee3d63',
                                      }}
                                     onClick={handleDeleteButton}
                                 >
