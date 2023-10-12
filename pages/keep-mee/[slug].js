@@ -65,8 +65,6 @@ const NoteDetail = () => {
                     setIsLoading(false);
                     router.push('/');
                 }, 3000);
-                const tooltip = document.querySelector('.tooltip');
-                tooltip.style.visibility = 'hidden';
             })
             .catch((error) => {
                 console.error('Data gagal ditangkap')
@@ -96,9 +94,9 @@ const NoteDetail = () => {
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
                         {/* <span></span> */}
-                        <Tooltip handleDeleteButton={handleDeleteButton}  
+                        <Tooltip handleDeleteButton={handleDeleteButton}
                             isTooltipVisible={isTooltipVisible} 
-                            setIsTooltipVisible={setIsTooltipVisible}
+                            setIsTooltipVisible={setIsTooltipVisible} 
                         />
                         <div className="btn">
                             <Link href="/" className="arrow_back"><Icon icon="ic:twotone-arrow-back-ios" /></Link>

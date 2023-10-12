@@ -62,7 +62,7 @@ const Home = () => {
             .map((note) => {
               return (
                 <>
-                    <motion.div className="note" key={note.id} style={{ backgroundColor: note.bgColor }}
+                    <motion.div className="note" style={{ backgroundColor: note.bgColor }}
                       initial={{ opacity: 0, y: -100 }}
                       animate={{ opacity: 1, y: 0 }}
                       whileHover={{
