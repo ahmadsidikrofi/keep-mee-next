@@ -9,6 +9,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { motion } from "framer-motion";
 import Pinned from "@/component/Pinned";
 import Tooltip from "@/component/Tooltip";
+import Autosave from "@/component/Autosave";
 
 const NoteDetail = () => {
     const router = useRouter();
@@ -148,6 +149,8 @@ const NoteDetail = () => {
                     </form>
                 )}
             </article>
+            <Autosave title={title} body={body} bgColor={bgColor} slug={slug} />
+            
         </section>
     )
 }

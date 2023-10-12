@@ -1,30 +1,44 @@
-import React, { useCallback, useEffect } from "react";
-import debounce from "lodash.debounce";
+import React, { useCallback, useEffect, useState } from "react";
+import axios from 'axios';
 
-import { LOCAL_STORAGE_KEY } from "../pages/index"; // Import LOCAL_STORAGE_KEY directly
+export const AUTO_SAVE_DELAY = 3000; // Waktu penundaan autosave dalam milidetik
 
-const DEBOUNCE_SAVE_DELAY_MS = 1000;
+export default function Autosave({ title, body, bgColor, slug }) {
+  const [typingTimeout, setTypingTimeout] = useState(null);
 
-export default function Autosave({ experimentData }) {
-  // This is the side effect we want to run on users' changes.
-  // In this example, we persist the changes in the localStorage.
-  const saveExperimentData = useCallback((newExperimentData) => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, newExperimentData.name);
-    console.log("Saved successfully!");
-  }, []);
-
-  const debouncedSave = useCallback(
-    debounce(async (newExperimentData) => {
-      saveExperimentData(newExperimentData);
-    }, DEBOUNCE_SAVE_DELAY_MS),
-    []
-  );
-
-  useEffect(() => {
-    if (experimentData) {
-      debouncedSave(experimentData);
+  // Callback yang akan dipanggil saat pengguna mengetik
+  const handleTyping = () => {
+    // Hapus timeout yang ada jika ada
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
     }
-  }, [experimentData, debouncedSave]);
+
+    // Atur timeout baru untuk memicu autosave setelah AUTO_SAVE_DELAY
+    const newTimeout = setTimeout(() => {
+      saveNote();
+    }, AUTO_SAVE_DELAY);
+
+    setTypingTimeout(newTimeout);
+  };
+
+  // Callback untuk menyimpan catatan
+  const saveNote = () => {
+    const editNote = { title, body, bgColor, slug };
+    axios.put(`https://furnicraft.web.id/api/keep-me/${slug}`, editNote, {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(() => {
+        console.log("Note saved successfully!");
+      })
+      .catch((error) => {
+        console.error('Error updating note:', error);
+      });
+  };
+
+  // Effect untuk mengatur autosave saat ada perubahan pada title atau body
+  useEffect(() => {
+    handleTyping();
+  }, [title, body]);
 
   // Do not display anything on the screen.
   return null;
