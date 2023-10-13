@@ -62,6 +62,8 @@ const NoteDetail = () => {
         axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
             .then(() => {
                 setIsLoading(true);
+                const tooltip = document.querySelector('.tooltip');
+                tooltip.style.visibility = 'hidden';
                 setTimeout(() => {
                     setIsLoading(false);
                     router.push('/');
@@ -110,7 +112,8 @@ const NoteDetail = () => {
                                     <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
                                 </motion.button>
                             }
-                            {isLoading ? <LoaderTriangle /> : <button>Save</button>}
+                            {isLoading ? <LoaderTriangle /> : <Autosave title={title} body={body} bgColor={bgColor} slug={slug} />}
+                            
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <input type="text"
@@ -149,8 +152,6 @@ const NoteDetail = () => {
                     </form>
                 )}
             </article>
-            <Autosave title={title} body={body} bgColor={bgColor} slug={slug} />
-            
         </section>
     )
 }

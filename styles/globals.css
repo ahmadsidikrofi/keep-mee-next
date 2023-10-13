@@ -758,11 +758,11 @@ textarea:focus {
 
 .tooltipBody {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     padding: 15px;
     background: #ee3d63;
     color: white;
-    width: 130px;
+    width: 120px;
     border-radius: 30px;
     left: 50%;
     transform: translateX(-5%); /* Untuk mengatur posisi tooltip ke tengah */
@@ -770,9 +770,9 @@ textarea:focus {
 .tooltipBody::before {
     content: "";
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
-    border-width: 10px;
+    border-width: 9px;
     border-style: solid;
     border-color: #ee3d63 transparent transparent transparent;
     transform: translateX(-50%);
@@ -782,7 +782,7 @@ textarea:focus {
 	font-family: 'quicksand';
 	font-weight: bold;
 	padding: 10px;
-	border-radius: 15px;
+	border-radius: 20px;
 	background-color: #ad203f;
 	border: none;
 	color: #ffffff;
