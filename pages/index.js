@@ -10,6 +10,9 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [notes, setNotes] = useState([]);
   const [searchNote, setSearchNote] = useState('');
+  const [changeLayout, setChangeLayout] = useState('');
+  const GRID = 'repeat(2, 1fr)';
+  const LIST = 'repeat(auto-fill, minmax(250px, 1fr))'
 
   useEffect(() => {
     // Gunakan async/await untuk mengambil data dengan axios
@@ -28,7 +31,7 @@ const Home = () => {
           return { ...note, pinned: isPinned }
         })
         updateNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)
-        setNotes(updateNote)
+        setNotes(updateNote);
         setIsLoading(false); // Data sudah tersedia, set isLoading menjadi false
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -48,14 +51,52 @@ const Home = () => {
     updatedNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)
     setNotes(updatedNote)
   };
+  
+  useEffect(() => {
+    if (typeof window != 'undefined') {
+      const updateLayout = localStorage.getItem('layout_keep-mee');
+      if (updateLayout) {
+        setChangeLayout(updateLayout);
+      };
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window != 'undefined') {
+      const updateLayout = localStorage.getItem('layout_keep-mee');
+      if (updateLayout) {
+        setChangeLayout(updateLayout);
+      };
+    }
+  }, [])
+  const toggleLayout = () => {
+    if ( changeLayout === "grid-layout" ) {
+      setChangeLayout('list-layout');
+    } else {
+      setChangeLayout('grid-layout');
+    }
+  }
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const gridLayout = document.querySelector('.notes-list');
+      gridLayout.style.gridTemplateColumns = changeLayout;
+      localStorage.setItem('layout_keep-mee', changeLayout);
+    }
+  }, [changeLayout])
 
   return (
     <>
       <div className="search">
         <Icon icon="material-symbols:search" width="1.5em" className='search-icon' />
         <input type="text" value={searchNote} onChange={(e) => setSearchNote(e.target.value)} placeholder='ketik untuk mencari...' />
+        <label className='changeColumn' >
+          <input type="checkbox" onChange={toggleLayout} checked={changeLayout === "grid-layout"}/>
+          <div className='changeColumn-icon'>
+            <Icon icon="ion:grid-outline" width="1.5em" />
+          </div>
+        </label>
       </div>
-      <div className="notes-list">
+      <div className={`notes-list ${changeLayout}`}>
         {isLoading ? (<Loader />)
           : notes && notes.filter((note) => searchNote ? note.title.toLowerCase().includes(searchNote.toLowerCase())
             : true)

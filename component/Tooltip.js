@@ -17,7 +17,7 @@ const toolTipVariants = {
 const Tooltip = ({ isTooltipVisible, setIsTooltipVisible, handleDeleteButton }) => {
     const handleCloseToolTip = (e) => {
         const tooltip = document.querySelector('.tooltip');
-        tooltip.style.visibility = 'hidden';
+        tooltip.style.display = 'none';
         e.preventDefault();
         setIsTooltipVisible(false);
     }

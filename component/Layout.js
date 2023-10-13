@@ -23,6 +23,7 @@ const pathVariants = {
 
 const Layout = ({ children }) => {
     const [darkMode, setDarkMode] = useState('');
+    
     useEffect(() => {
         if (typeof window !== "undefined") {
             const savedDarkMode = localStorage.getItem('dark');

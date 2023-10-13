@@ -32,6 +32,12 @@ code {
 		grid-gap: 1rem;
 	}
 }
+.grid-layout {
+	grid-template-columns: repeat(2, 1fr);
+}
+.list-layout {
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
 
 .notes-list .link {
 	text-decoration: none;
@@ -100,6 +106,7 @@ textarea:focus {
 .search {
 	display: flex;
 	align-items: center;
+	justify-content: space-around;
 	background-color: rgb(233, 233, 233);
 	border-radius: 10px;
 	padding: 10px;
@@ -750,9 +757,9 @@ textarea:focus {
 
 /* Tooltip Delete button */
 .tooltip {
-	display: flex;
+	display: none;
 	justify-content: space-around;
-	visibility: hidden;
+	/* visibility: hidden; */
 	margin-top: 0;
 }
 
@@ -796,4 +803,12 @@ textarea:focus {
 	background-color: #333;
 	border-radius: 20px;
 	padding: 2px;
+}
+
+/* changeColumn */
+.changeColumn {
+	cursor: pointer;
+}
+.changeColumn input {
+	display: none;
 }

@@ -86,7 +86,7 @@ const NoteDetail = () => {
 
     const handleToolTip = (e) => {
         const tooltip = document.querySelector('.tooltip');
-        tooltip.style.visibility = 'visible';
+        tooltip.style.display = 'flex';
         e.preventDefault();
         setIsTooltipVisible(true);
     }
@@ -96,7 +96,7 @@ const NoteDetail = () => {
             <article>
                 {datas && (
                     <form onSubmit={handleEditSubmit} >
-                        {/* <span></span> */}
+                        <span></span>
                         <Tooltip handleDeleteButton={handleDeleteButton}
                             isTooltipVisible={isTooltipVisible} 
                             setIsTooltipVisible={setIsTooltipVisible} 
