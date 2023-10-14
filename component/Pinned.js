@@ -1,4 +1,17 @@
-const Pinned = ({ note, togglePin }) => {
+import { useEffect } from "react";
+
+const Pinned = ({ note, notes, setNotes }) => {
+
+  const togglePin = (note) => {
+    // Simpan status "pinned" secara lokal (gunakan localStorage)
+    note.pinned = !note.pinned
+    localStorage.setItem(`${note.slug}_pinned`, note.pinned)
+
+    const updatedNote = [...notes]
+    updatedNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)
+    setNotes(updatedNote)
+  };
+
     return ( 
       <label className="ui-like">
         <input type="checkbox" defaultChecked={note.pinned} onChange={() => togglePin(note)} />

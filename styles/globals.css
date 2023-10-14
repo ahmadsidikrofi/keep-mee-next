@@ -32,11 +32,11 @@ code {
 		grid-gap: 1rem;
 	}
 }
-.grid-layout {
-	grid-template-columns: repeat(2, 1fr);
-}
-.list-layout {
+.FIRST-GRID-LAYOUT {
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.SECOND-GRID-LAYOUT {
+	grid-template-columns: repeat(2, 1fr);
 }
 
 .notes-list .link {
@@ -809,6 +809,12 @@ textarea:focus {
 .changeColumn {
 	cursor: pointer;
 }
+/* .changeColumn:hover {
+	color: white;
+	padding: 5px;
+	background-color: #ee3d63;
+	border-radius: 10px;
+} */
 .changeColumn input {
 	display: none;
 }

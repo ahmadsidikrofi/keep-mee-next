@@ -5,14 +5,13 @@ import Loader from '@/component/Loader';
 import axios from 'axios'; // Import axios
 import { motion } from 'framer-motion';
 import Pinned from '@/component/Pinned';
+import ColumnChanger from '@/component/ColumnChanger';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [notes, setNotes] = useState([]);
   const [searchNote, setSearchNote] = useState('');
   const [changeLayout, setChangeLayout] = useState('');
-  const GRID = 'repeat(2, 1fr)';
-  const LIST = 'repeat(auto-fill, minmax(250px, 1fr))'
 
   useEffect(() => {
     // Gunakan async/await untuk mengambil data dengan axios
@@ -42,59 +41,12 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const togglePin = (note) => {
-    // Simpan status "pinned" secara lokal (gunakan localStorage)
-    note.pinned = !note.pinned
-    localStorage.setItem(`${note.slug}_pinned`, note.pinned)
-
-    const updatedNote = [...notes]
-    updatedNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)
-    setNotes(updatedNote)
-  };
-  
-  useEffect(() => {
-    if (typeof window != 'undefined') {
-      const updateLayout = localStorage.getItem('layout_keep-mee');
-      if (updateLayout) {
-        setChangeLayout(updateLayout);
-      };
-    }
-  }, [])
-
-  useEffect(() => {
-    if (typeof window != 'undefined') {
-      const updateLayout = localStorage.getItem('layout_keep-mee');
-      if (updateLayout) {
-        setChangeLayout(updateLayout);
-      };
-    }
-  }, [])
-  const toggleLayout = () => {
-    if ( changeLayout === "grid-layout" ) {
-      setChangeLayout('list-layout');
-    } else {
-      setChangeLayout('grid-layout');
-    }
-  }
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const gridLayout = document.querySelector('.notes-list');
-      gridLayout.style.gridTemplateColumns = changeLayout;
-      localStorage.setItem('layout_keep-mee', changeLayout);
-    }
-  }, [changeLayout])
-
   return (
     <>
       <div className="search">
         <Icon icon="material-symbols:search" width="1.5em" className='search-icon' />
         <input type="text" value={searchNote} onChange={(e) => setSearchNote(e.target.value)} placeholder='ketik untuk mencari...' />
-        <label className='changeColumn' >
-          <input type="checkbox" onChange={toggleLayout} checked={changeLayout === "grid-layout"}/>
-          <div className='changeColumn-icon'>
-            <Icon icon="ion:grid-outline" width="1.5em" />
-          </div>
-        </label>
+        <ColumnChanger changeLayout={changeLayout} setChangeLayout={setChangeLayout} />
       </div>
       <div className={`notes-list ${changeLayout}`}>
         {isLoading ? (<Loader />)
@@ -120,7 +72,7 @@ const Home = () => {
                       </Link>
                       <div className="note-footer">
                       <small>{note.date}</small>
-                      <Pinned note={note} togglePin={togglePin}/>
+                      <Pinned note={note} notes={notes} setNotes={setNotes}/>
                       </div>
                     </motion.div>
                 </>
