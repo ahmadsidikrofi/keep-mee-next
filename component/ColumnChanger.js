@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Icon } from '@iconify/react';
 import { motion } from "framer-motion";
+import { rgb } from "chroma-js";
 
 const ColumnChanger = ({ changeLayout, setChangeLayout }) => {
     useEffect(() => {
@@ -50,11 +51,11 @@ const ColumnChanger = ({ changeLayout, setChangeLayout }) => {
         },
         hover: {
             scale: 1.1,
-            color: 'white',
-            backgroundColor: '#ee3d63',
             padding: 5,
             // paddingTop: 3,
             borderRadius: 5,
+            color: '#ffffff',
+            backgroundColor: '#ee3d63'
         }
     }
 
@@ -73,7 +74,7 @@ const ColumnChanger = ({ changeLayout, setChangeLayout }) => {
                     initial="hidden"
                     animate="visible"
                     whileHover="hover"
-                    whileTap={{ x: 100, opacity: 0 }}
+                    whileTap={{ scale: 0 }}
                 >
                     <Icon icon="ion:grid-outline" width="1.5em" /> 
                 </motion.div>
@@ -83,7 +84,7 @@ const ColumnChanger = ({ changeLayout, setChangeLayout }) => {
                     initial="hidden"
                     animate="visible"
                     whileHover="hover"
-                    whileTap={{ x: 100, opacity: 0 }}
+                    whileTap={{ scale: 0 }}
                 >
                     <Icon icon="circum:grid-2-h" width="1.5em"/> 
                 </motion.div>
