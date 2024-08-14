@@ -74,7 +74,7 @@ const Layout = ({ children }) => {
                         onChange={toggleDarkMode} />
                     <span className="slider"></span>
                 </label>
-                <Link href={"/createNote"} title="Note baru" className="save"><Icon icon="solar:pen-bold" /></Link>
+                <Link href={"/keep-mee/new"} title="Note baru" className="save"><Icon icon="solar:pen-bold" /></Link>
             </motion.div>
             {children}
         </>
