@@ -59,7 +59,7 @@ const NoteDetail = () => {
 
     const handleDeleteButton = (e) => {
         e.preventDefault();
-        axios.delete(`https://flowbeat.web.id/api/keep-me/${id}`)
+        axios.delete(`https://flowbeat.web.id/api/delete/keep-me/${id}`)
             .then(() => {
                 setIsLoading(true);
                 const tooltip = document.querySelector('.tooltip');
