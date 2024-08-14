@@ -26,7 +26,7 @@ export default function Autosave({ title, body, bgColor, id }) {
   // Callback untuk menyimpan catatan
   const saveNote = () => {
     const editNote = { title, body, bgColor, id };
-    axios.put(`https://furnicraft.web.id/api/keep-me/${id}`, editNote, {
+    axios.put(`https://furnicraft.web.id/api/edit/keep-me/${id}`, editNote, {
       headers: { "Content-Type": "application/json" },
     })
       .then(() => {
