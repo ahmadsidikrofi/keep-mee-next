@@ -17,7 +17,7 @@ const Home = () => {
     // Gunakan async/await untuk mengambil data dengan axios
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://flowbeat123.vercel.app/api/keep-me');
+        const response = await axios.get('https://flowbeat.web.id/api/keep-me');
 
         if (response.status !== 200) {
           throw new Error('Network response was not ok');
@@ -67,7 +67,7 @@ const Home = () => {
                         }
                       }}
                     >
-                      <Link href={`/keep-mee/${note.slug}`} key={note.id} className="link">
+                      <Link href={`/keep-mee/${note.id}`} key={note.id} className="link">
                         <p style={{ paddingBottom: 60 }}><strong>{note.title}</strong></p>
                       </Link>
                       <div className="note-footer">

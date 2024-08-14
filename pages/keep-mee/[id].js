@@ -13,7 +13,7 @@ import Autosave from "@/component/Autosave";
 
 const NoteDetail = () => {
     const router = useRouter();
-    const { slug } = router.query;
+    const { id } = router.query;
     const [datas, setDatas] = useState(null);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
@@ -23,8 +23,8 @@ const NoteDetail = () => {
     const editorRef = useRef(null);
 
     useEffect(() => {
-        if (slug) {
-            axios.get(`https://flowbeat123.vercel.app/api/keep-me/${slug}`)
+        if (id) {
+            axios.get(`https://flowbeat.web.id/api/keep-me/${id}`)
                 .then((res) => {
                     const data = res.data.data;
                     setDatas(data);
@@ -36,13 +36,13 @@ const NoteDetail = () => {
                     console.error('Error fetching data:', error);
                 });
         }
-    }, [slug]);
+    }, [id]);
 
     const handleEditSubmit = (e) => {
         e.preventDefault();
         const editNote = { title, body, bgColor };
 
-        axios.put(`https://flowbeat123.vercel.app/api/keep-me/${slug}`, editNote, {
+        axios.put(`https://flowbeat.web.id/api/keep-me/${id}`, editNote, {
             headers: { "Content-Type": "application/json" },
         })
             .then(() => {
@@ -59,7 +59,7 @@ const NoteDetail = () => {
 
     const handleDeleteButton = (e) => {
         e.preventDefault();
-        axios.delete(`https://flowbeat123.vercel.app/api/keep-me/${slug}`)
+        axios.delete(`https://flowbeat.web.id/api/keep-me/${id}`)
             .then(() => {
                 setIsLoading(true);
                 const tooltip = document.querySelector('.tooltip');
@@ -81,7 +81,7 @@ const NoteDetail = () => {
     const togglePin = (note) => {
         // Simpan status "pinned" secara lokal (gunakan localStorage)
         note.pinned = !note.pinned
-        localStorage.setItem(`${note.slug}_pinned`, note.pinned)
+        localStorage.setItem(`${note.id}_pinned`, note.pinned)
     };
 
     const handleToolTip = (e) => {
@@ -112,7 +112,7 @@ const NoteDetail = () => {
                                     <Icon icon="material-symbols:delete-outline" width="20" height="20" className="delete_icon" />
                                 </motion.button>
                             }
-                            {isLoading ? <LoaderTriangle /> : <Autosave title={title} body={body} bgColor={bgColor} slug={slug} />}
+                            {isLoading ? <LoaderTriangle /> : <Autosave title={title} body={body} bgColor={bgColor} id={id} />}
                             
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>

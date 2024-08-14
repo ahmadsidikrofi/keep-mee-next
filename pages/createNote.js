@@ -25,7 +25,7 @@ const CreateNote = () => {
     const handleSubmiteNote = (e) => {
         e.preventDefault();
         const newNote = { body, title, bgColor, date: date.toLocaleDateString() };
-        fetch('https://flowbeat123.vercel.app/api/create/keep-me', {
+        fetch('https://flowbeat.web.id/api/create/keep-me', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(newNote)

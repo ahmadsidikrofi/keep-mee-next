@@ -4,7 +4,7 @@ import LoaderRect from "./LoaderRect";
 
 export const AUTO_SAVE_DELAY = 2000; // Waktu penundaan autosave
 
-export default function Autosave({ title, body, bgColor, slug }) {
+export default function Autosave({ title, body, bgColor, id }) {
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,8 +25,8 @@ export default function Autosave({ title, body, bgColor, slug }) {
 
   // Callback untuk menyimpan catatan
   const saveNote = () => {
-    const editNote = { title, body, bgColor, slug };
-    axios.put(`https://furnicraft.web.id/api/keep-me/${slug}`, editNote, {
+    const editNote = { title, body, bgColor, id };
+    axios.put(`https://furnicraft.web.id/api/keep-me/${id}`, editNote, {
       headers: { "Content-Type": "application/json" },
     })
       .then(() => {
