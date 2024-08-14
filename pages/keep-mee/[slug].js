@@ -24,7 +24,7 @@ const NoteDetail = () => {
 
     useEffect(() => {
         if (slug) {
-            axios.get(`https://furnicraft.web.id/api/keep-me/${slug}`)
+            axios.get(`https://flowbeat123.vercel.app/api/keep-me/${slug}`)
                 .then((res) => {
                     const data = res.data.data;
                     setDatas(data);
@@ -42,7 +42,7 @@ const NoteDetail = () => {
         e.preventDefault();
         const editNote = { title, body, bgColor };
 
-        axios.put(`https://furnicraft.web.id/api/keep-me/${slug}`, editNote, {
+        axios.put(`https://flowbeat123.vercel.app/api/keep-me/${slug}`, editNote, {
             headers: { "Content-Type": "application/json" },
         })
             .then(() => {
@@ -59,7 +59,7 @@ const NoteDetail = () => {
 
     const handleDeleteButton = (e) => {
         e.preventDefault();
-        axios.delete(`https://furnicraft.web.id/api/keep-me/${slug}`)
+        axios.delete(`https://flowbeat123.vercel.app/api/keep-me/${slug}`)
             .then(() => {
                 setIsLoading(true);
                 const tooltip = document.querySelector('.tooltip');

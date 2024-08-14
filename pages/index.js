@@ -17,7 +17,7 @@ const Home = () => {
     // Gunakan async/await untuk mengambil data dengan axios
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://furnicraft.web.id/api/keep-me');
+        const response = await axios.get('https://flowbeat123.vercel.app/api/keep-me');
 
         if (response.status !== 200) {
           throw new Error('Network response was not ok');
