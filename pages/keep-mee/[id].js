@@ -42,7 +42,7 @@ const NoteDetail = () => {
         e.preventDefault();
         const editNote = { title, body, bgColor };
 
-        axios.put(`https://flowbeat.web.id/api/keep-me/${id}`, editNote, {
+        axios.put(`https://flowbeat.web.id/api/edit/keep-me/${id}`, editNote, {
             headers: { "Content-Type": "application/json" },
         })
             .then(() => {
