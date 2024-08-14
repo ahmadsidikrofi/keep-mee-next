@@ -5,7 +5,7 @@ const Pinned = ({ note, notes, setNotes }) => {
   const togglePin = (note) => {
     // Simpan status "pinned" secara lokal (gunakan localStorage)
     note.pinned = !note.pinned
-    localStorage.setItem(`${note.id}_pinned`, note.pinned)
+    localStorage.setItem(`${note.title}_pinned`, note.pinned)
 
     const updatedNote = [...notes]
     updatedNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)

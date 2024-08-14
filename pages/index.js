@@ -26,7 +26,7 @@ const Home = () => {
 
         // Gabungkan note yang terpin dengan note yang tidak terpin
         const updateNote = allNotes.map((note) => {
-          const isPinned = localStorage.getItem(`${note.slug}_pinned`) === 'true'
+          const isPinned = localStorage.getItem(`${note.title}_pinned`) === 'true'
           return { ...note, pinned: isPinned }
         })
         updateNote.sort((noteSebelumnya, noteTerpin) => noteTerpin.pinned - noteSebelumnya.pinned)
